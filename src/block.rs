@@ -28,6 +28,16 @@ pub struct Block {
 }
 
 impl Block {
+    pub fn new_genesis() -> Self {
+        Self::new(
+            0,
+            vec![0, 64],
+            0,
+            String::from("Genesis block!"),
+            0x00000000000000000000000000000000,
+        )
+    }
+
     /// Creates new Block instance with required fields
     pub fn new(
         index: BlockIndex,
@@ -93,11 +103,12 @@ impl Block {
 
 impl Debug for Block {
     fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
-        write!(
+        writeln!(
             f,
-            "Block[{}] - hash: {} at {} with {}. Block nonce is {}",
+            "Block[{}] \n --- Hash: {} \n --- Prev block timestamp: {} \n --- Timestamp: {} \n --- Payload: {} \n --- Nonce {}",
             &self.index,
             &hex::encode(&self.hash),
+            &hex::encode(&self.prev_block_hash),
             &self.timestamp,
             &self.payload,
             &self.nonce

@@ -1,14 +1,7 @@
-use blockchainlib::Block;
+use blockchainlib::Blockchain;
 
 fn main() {
-    let mut block = Block::new(
-        0,
-        vec![0, 64],
-        0,
-        "Genesis block".to_string(),
-        0x0000ffffffffffffffffffffffffffff,
-    );
-    block.create_hash();
-    block.mine();
-    print!("Block mined successfully: {:?}", &block);
+    let mut blockchain = Blockchain::bootstrap();
+    blockchain.start_mining();
+    println!("Blockchain: {:?}", &blockchain.get_chain());
 }
